@@ -1,4 +1,5 @@
 
+## xcxerxes-vue-slider
 
  [![NPM version](https://img.shields.io/npm/v/xcxerxes-vue-slider.svg)](https://www.npmjs.com/package/xcxerxes-vue-slider.svg)
 [![Build Status](https://travis-ci.org/XcXerxes/xcxerxes-vue-slider.svg)](https://travis-ci.org/XcXerxes/xcxerxes-vue-slider.svg)
@@ -6,13 +7,13 @@
 
 
 * [xcxerxes-vue-slider](#vue-slider)
-  * [how to use](#how to use)
+  * [how use](#how use)
 
 ## vue-slider(vue滑动组件)
 
 基于 `vue`的简单滑动组件，
 
-### how to use
+### how use
 
 首页安装组件
 
