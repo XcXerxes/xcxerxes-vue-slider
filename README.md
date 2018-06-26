@@ -7,13 +7,13 @@
 
 
 * [xcxerxes-vue-slider](#vue-slider)
-  * [how use](#how use)
+  * [How use](#How use)
 
 ## vue-slider(vue滑动组件)
 
 基于 `vue`的简单滑动组件，
 
-### how use
+### How use
 
 首页安装组件
 
