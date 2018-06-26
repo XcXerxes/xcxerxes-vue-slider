@@ -2,31 +2,35 @@
   <div id="app" :style="{'text-align': 'center'}">
     <img src="./assets/logo.png">
     <div class="main">
-      <xcxerxes-vue-slider v-model="sliderValue" />
+      <vue-slider v-model="sliderValue" />
       <div class="main-result">{{sliderValue}}</div>
     </div>
     <div class="main">
-      <xcxerxes-vue-slider :value="sliderValue1" @change="change" />
+      <vue-slider :value="sliderValue1" @change="change" />
       <div class="main-result">{{sliderValue1}}</div>
     </div>
     <div class="main">
-      <xcxerxes-vue-slider v-model="sliderValue2" notPrecentage />
+      <vue-slider v-model="sliderValue2" notPrecentage />
       <div class="main-result">{{sliderValue2}}</div>
     </div>
     <div class="main">
-      <xcxerxes-vue-slider v-model="sliderValue3" :color="color" />
+      <vue-slider v-model="sliderValue3" :color="color" />
       <div class="main-result" style="margin-right: 30px">{{sliderValue3}}</div>
       <input type="color" v-model="color">
     </div>
     <div class="main">
-      <xcxerxes-vue-slider disabled v-model="sliderValue4" />
+      <vue-slider disabled v-model="sliderValue4" />
       <div class="main-result">{{sliderValue4}}</div>
+    </div>
+    <div class="main">
+      <xcxerxes-vue-slider v-model="sliderValue5" />
+      <div class="main-result">{{sliderValue5}}</div>
     </div>
   </div>
 </template>
 
 <script>
-import xcxerxesVueSlider from './components/slider'
+import vueSlider from './components/slider'
 
 export default {
   name: 'app',
@@ -36,10 +40,11 @@ export default {
     sliderValue2: 20,
     sliderValue3: 60,
     sliderValue4: 50,
+    sliderValue5: 70,
     color: '#ff8000'
   }),
   components: {
-    xcxerxesVueSlider
+    vueSlider
   },
   methods: {
     change (value) {

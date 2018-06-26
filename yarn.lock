@@ -6791,6 +6791,12 @@ ws@^4.0.0:
     async-limiter "~1.0.0"
     safe-buffer "~5.1.0"
 
+xcxerxes-vue-slider@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/xcxerxes-vue-slider/-/xcxerxes-vue-slider-0.1.2.tgz#64f99d75c7ce77408d26793efc2599c4d27ffd5e"
+  dependencies:
+    vue "^2.5.16"
+
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
