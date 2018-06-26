@@ -1,12 +1,20 @@
 {
   "name": "xcxerxes-vue-slider",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
+  "description": "this is a slider as vuejs",
+  "main": "./src/slider.vue",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "keywords": [
+    "vue",
+    "slider"
+  ],
+  "author": "xcxerxes",
+  "license": "MIT",
+  "homepage": "https://github.com/XcXerxes/xcxerxes-vue-slider#readme",
   "dependencies": {
     "vue": "^2.5.16"
   },

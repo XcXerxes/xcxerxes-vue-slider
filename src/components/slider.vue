@@ -16,9 +16,9 @@
        @keydown.left="onLeftKeyDown"
        @keydown.right="onRightKeyDown"
        >
-       <span class="circle-interno"></span>
-       <div class="xcxerxes-numero-slider">
-         <span>{{Math.round(sliderValue) > 100 ? 100 : Math.round(sliderValue)}} {{notPrecentage ? '' : '%'}}</span>
+       <span class="circle-interno" :style="{border: `2px solid ${color}`}"></span>
+       <div class="xcxerxes-numero-slider" v-if="notPrecentage">
+         <span :style="{color}">{{Math.round(sliderValue) > 100 ? 100 : Math.round(sliderValue)}} {{notPrecentage ? '%' : ''}}</span>
        </div>
        </div> 
       </div>
@@ -27,7 +27,7 @@
 </template>
 <script>
 export default {
-  name: 'xcxerxes-slider',
+  name: 'xcxerxes-vue-slider',
   props: {
     value: {
       type: Number,
@@ -38,7 +38,8 @@ export default {
       default: false
     },
     color: {
-      type: String
+      type: String,
+      default: 'rgb(31, 116, 255)'
     },
     min: {
       type: Number,
@@ -49,16 +50,20 @@ export default {
       default: 1
     },
     notPrecentage: {
-      type: [Boolean],
+      type: [Boolean, String],
       default: false
     }
   },
   data () {
     return {
       sliderValue: this.value,
-      numeroMostrar: this.value,
       ancho: 0,
       valuex: 0
+    }
+  },
+  watch: {
+    sliderValue (value) {
+      this.$emit('change', value)
     }
   },
   created () {
@@ -71,15 +76,28 @@ export default {
   methods: {
     resizex () {
       this.ancho = this.$refs.lineaSlider.offsetWidth
-      this.setSliderValue(this.numeroMostrar)
+      this.setSliderValue(this.sliderValue)
     },
     setSliderValue (value) {
       if (value <= 100 && value >= 0) {
         this.sliderValue = value
       }
     },
+    // get currentValue
+    getCurrentValue (clientX, offsetLeft) {
+      return Math.round((clientX - offsetLeft) / this.ancho * 100) 
+    },
     // line click
-    clickLinea () {
+    clickLinea (event) {
+      const {className} = event.target
+      if (className !== 'linea-slider' && className !== 'linea-pintada' || this.disabled) {
+        return
+      }
+      const linea = this.$refs.lineaSlider
+      const offsetLeft = linea.getBoundingClientRect().left
+      const value = this.getCurrentValue(event.clientX, offsetLeft)
+      this.setSliderValue(value)
+      this.$emit('input', value + 1)
     },
     mousedownx () {
       window.addEventListener('mousemove', this.mouseMovex)
@@ -88,10 +106,10 @@ export default {
       window.addEventListener('touchend', this.removeEvents)
     },
     mouseMovex () {
+      /* eslint-disable */
       if (this.disabled) {
         return
       }
-      let lineaPintada = this.$refs.lineaPintada
       let linea = this.$refs.lineaSlider
       let circle = this.$refs.circle
       let x
@@ -103,35 +121,27 @@ export default {
       let valorx = x - (linea.getBoundingClientRect().left - circle.offsetWidth/2)
       if (this.min) {
         if ((valorx / this.ancho) * 100 <= this.min) {
-          valorx = valorx
         }
-      } else {
-        if (Math.sign(valorx) === -1) {
-          valorx = 0
-        }
+      }
+      if (Math.sign(valorx) === -1) {
+        valorx = 0
       }
       if (valorx > this.ancho) {
         valorx = this.ancho
       }
 
       this.valuex = valorx
-      let obtenerPorcentaje = 0
-      let porcentajex = 0
-      obtenerPorcentaje = (valorx / this.ancho) * 100
-      porcentajex = Math.round(obtenerPorcentaje)
-      this.setSliderValue(porcentajex)
-      this.numeroMostrar = porcentajex
-      this.$emit('input', porcentajex)
+      const value = Math.round((valorx / this.ancho) * 100)
+      this.setSliderValue(value)
+      this.$emit('input', value)
     },
-    removeEvents (event) {
+    removeEvents () {
       if (this.disabled) {
         return
       }
-      let obtenerPorcentaje = (this.valuex / this.ancho) * 100
-      let porcentajex = Math.round(obtenerPorcentaje)
-
-      this.setSliderValue(porcentajex)
-      this.$emit('input',porcentajex)
+      const value = Math.round((this.valuex / this.ancho) * 100)
+      this.setSliderValue(value)
+      this.$emit('input',value)
       window.removeEventListener('mousemove', this.mouseMovex)
       window.removeEventListener('mouseup', this.removeEvents)
       window.removeEventListener('touchmove', this.mouseMovex)
@@ -146,17 +156,17 @@ export default {
   cursor: default;
 }
 .s-d .circle-slider {
-  background-color: rgb(200, 200, 200);
+  background-color: rgb(200, 200, 200)!important;
   cursor: default;
 }
 .s-d .circle-interno {
   opacity: 0;
 }
 .s-d .circle-slider .xcxerxes-numero-slider {
-  background-color: rgb(60, 60, 60);
+  background-color: rgb(60, 60, 60)!important;
 }
 .s-d .linea-pintada {
-  background-color: rgb(200, 200, 200);
+  background-color: rgb(200, 200, 200)!important;
 }
 .xcxerxes-slider {
   width: 100%;
@@ -173,7 +183,7 @@ export default {
 .linea-pintada {
   width: 0px;
   height: 100%;
-  background-color: rgb(31, 116, 255);
+  position: relative;
 }
 .circle-slider {
   position: absolute;
@@ -188,7 +198,6 @@ export default {
   right: 0;
 }
 .circle-interno {
-  border: 2px solid rgb(31, 116, 255);
   position: absolute;
   left: 0%;
   top: 0%;
@@ -203,14 +212,17 @@ export default {
 }
 .xcxerxes-numero-slider {
   position: absolute;
-  top: -7px;
+  top: -8px;
   left: 50%;
+  z-index: 300;
   transform: translate(-50%, -50%) scale(.5);
   padding: 4px;
-  background-color: rgb(31, 116, 255);
   border-radius: 5px;
   transition: all .3s ease;
-  font-size: 12px;
+  width: 78px;
+}
+.xcxerxes-numero-slider span {
+  font-size: 24px;
 }
 </style>
 
