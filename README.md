@@ -1,5 +1,12 @@
-## [xcxerxes-vue-slider](#vue-slider)
-  ### [how to use](#how to use)
+
+
+ [![NPM version](https://img.shields.io/npm/v/xcxerxes-vue-slider.svg)](https://www.npmjs.com/package/xcxerxes-vue-slider.svg)
+[![Build Status](https://travis-ci.org/XcXerxes/xcxerxes-vue-slider.svg)](https://travis-ci.org/XcXerxes/xcxerxes-vue-slider.svg)
+![npm](https://img.shields.io/npm/l/xcxerxes-vue-slider.svg)
+
+
+* [xcxerxes-vue-slider](#vue-slider)
+  * [how to use](#how to use)
 
 ## vue-slider(vue滑动组件)
 
